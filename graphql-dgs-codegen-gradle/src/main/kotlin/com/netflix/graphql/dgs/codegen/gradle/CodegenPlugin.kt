@@ -22,7 +22,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.logging.Logging
 import org.gradle.api.plugins.JavaPlugin
-import org.gradle.api.plugins.JavaPluginConvention
+import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.api.tasks.SourceSet
 import java.util.Optional
 
@@ -48,7 +48,7 @@ class CodegenPlugin : Plugin<Project> {
             it.dependsOn(generateJavaTaskProvider.get())
         }
 
-        val javaConvention = project.convention.getPlugin(JavaPluginConvention::class.java)
+        val javaConvention = project.extensions.getByType(JavaPluginExtension::class.java)
         val sourceSets = javaConvention.sourceSets
         val mainSourceSet = sourceSets.getByName(SourceSet.MAIN_SOURCE_SET_NAME)
         val outputDir = generateJavaTaskProvider.get().getOutputDir()
